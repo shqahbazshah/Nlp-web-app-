@@ -1,12 +1,10 @@
-
 import nltk
 
-try:
-    nltk.data.find('sentiment/vader_lexicon')
-except LookupError:
-    nltk.download('vader_lexicon')
+# Force download vader_lexicon at runtime
+nltk.download('vader_lexicon')
 
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
+
 import streamlit as st
 import json
 import requests
