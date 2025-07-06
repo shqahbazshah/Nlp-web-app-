@@ -1,15 +1,15 @@
+
 import nltk
 
 try:
     nltk.data.find('sentiment/vader_lexicon')
 except LookupError:
     nltk.download('vader_lexicon')
-from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import streamlit as st
 import json
 import requests
-from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 # Sentiment & Emotion APIs
 class Api:
@@ -95,7 +95,7 @@ def login():
         else:
             st.error("Invalid Email/Password")
 
-# Home
+# Home page after login
 def home():
     st.title("🏠 NLP Web App")
 
@@ -124,14 +124,20 @@ def home():
 
     elif menu == "Logout":
         st.session_state.logged_in = False
+        st.experimental_rerun()
 
-
-# Main
-if not st.session_state.logged_in:
-    option = st.sidebar.radio("Select", ["Login", "Register"])
-    if option == "Login":
-        login()
+# Main app controller
+def main():
+    if not st.session_state.logged_in:
+        option = st.sidebar.radio("Select", ["Login", "Register"])
+        if option == "Login":
+            login()
+        else:
+            register()
     else:
-        register()
-else:
-    home()
+        home()
+
+# Run app
+if __name__ == "__main__":
+    main()
+
